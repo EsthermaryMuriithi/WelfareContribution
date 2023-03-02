@@ -1,4 +1,4 @@
-package com.example.welfarecontribution
+package com.example.welfarecontribution;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;

@@ -1,7 +1,5 @@
 package com.example.welfarecontribution;
 
-import com.google.firebase.database.Exclude;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +34,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("awarded", this.awarded);
