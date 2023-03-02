@@ -1,175 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="#98837B"
     tools:context=".UserReg">
-
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:background="@color/teal_700"
-        android:elevation="10dp"
-        tools:ignore="MissingClass">
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Register User"
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/user"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
+
+                android:id="@+id/registerFullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User Registration"
+                android:drawablePadding="10dp"
+                android:hint="Enter Full Name"
                 android:textColor="#000"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                android:textColorHint="#000"
+                android:textSize="18sp" />
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"/>
+            <EditText
 
-            <LinearLayout
+                android:id="@+id/registerPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:layout_marginBottom="20dp">
+                android:drawablePadding="10dp"
+                android:hint="Enter Phone Number"
+                android:inputType="number"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="18sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxStrokeColor="#000"
-                    app:hintTextAppearance="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            <EditText
+                android:id="@+id/registerEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:hint="Enter Email"
+                android:inputType="textEmailAddress"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="18sp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/registerFullName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Full Name"
-                        android:drawablePadding="10dp"
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        android:textColorHint="#000"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxStrokeColor="#000"
-                    app:hintTextAppearance="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/registerPhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="enter_phone_number"
-                        android:inputType="number"
-                        android:drawablePadding="10dp"
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        android:textColorHint="#000"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxStrokeColor="@color/black"
-                    app:hintTextAppearance="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/registerUserID"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="UserID"
-                        android:inputType="number"
-                        android:drawablePadding="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textColorHint="#000"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/registerPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:hint="Enter User Password"
+                android:inputType="textPassword"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="18sp" />
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxStrokeColor="#000"
-                    app:hintTextAppearance="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/registerEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Email"
-                        android:inputType="textEmailAddress"
-                        android:drawablePadding="10dp"
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        android:textColorHint="#000"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxStrokeColor="#000"
-                    app:hintTextAppearance="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/registerPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Your Password"
-                        android:inputType="textPassword"
-                        android:drawablePadding="10dp"
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        android:textColorHint="#000"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-                <Button
-                    android:id="@+id/userRegisterButton"
-                    android:text="sign_up_now"
-                    android:textAllCaps="false"
-                    android:layout_marginTop="20dp"
-                    android:layout_gravity="center"
-                    android:textColor="#fff"
-                    android:textSize="20sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/userRegisterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Register User"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-
+    </LinearLayout>
 </ScrollView>

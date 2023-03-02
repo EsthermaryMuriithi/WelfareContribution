@@ -39,8 +39,7 @@ public class UserReg extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reg);
         registerFullName=findViewById(R.id.registerFullName);
-        registerPhoneNumber=findViewById(R.id.registerPhoneNumber);
-        registerUserID=findViewById(R.id.registerUserID);
+        registerPhoneNumber=findViewById(R.id.registerPhoneNumber)
         registerEmail=findViewById(R.id.registerEmail);
 
         registerPassword=findViewById(R.id.registerPassword);
@@ -88,8 +87,6 @@ public class UserReg extends AppCompatActivity {
                             if (!task.isSuccessful()){
                                 String error=task.getException().toString();
                                 Toast.makeText(UserReg.this,"Error"+error,Toast.LENGTH_LONG).show();
-
-
                             }
                             else {
                                 String currentUserId=mAuth.getCurrentUser().getUid();
@@ -100,8 +97,6 @@ public class UserReg extends AppCompatActivity {
                                 userInfo.put("email",email);
                                 userInfo.put("phoneNumber",phoneNumber);
                                 userInfo.put("type","user");
-                                userInfo.put("awarded", false);
-
                                 userDatabaseRef.updateChildren(userInfo).addOnCompleteListener(new OnCompleteListener() {
                                     @Override
                                     public void onComplete(@NonNull Task task) {
