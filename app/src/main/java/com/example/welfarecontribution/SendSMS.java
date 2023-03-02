@@ -1,4 +1,4 @@
-package com.example.welfarecontribution
+package com.example.welfarecontribution;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -16,20 +16,17 @@ import android.widget.Toast;
 public class SendSMS extends AppCompatActivity {
     EditText etPhone,etMessage;
     Button btSend;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_sms);
-        etPhone = findViewById(R.id.et_phone);
-        Intent intent = getIntent();
-        String phone = intent.getStringExtra("phone");
-        etPhone.setText(String.valueOf(phone));
-        etMessage = findViewById(R.id.et_message);
 
+        etPhone = findViewById(R.id.et_phone);
+        etMessage = findViewById(R.id.et_message);
         btSend = findViewById(R.id.bt_send);
+
         btSend.setOnClickListener(v -> {
-            //checking condition
+            // Request send sms permissions from user
             if(ContextCompat.checkSelfPermission(SendSMS.this, Manifest.permission.SEND_SMS)
                     == PackageManager.PERMISSION_GRANTED) {
                 //WHEN permission is granted
@@ -51,7 +48,6 @@ public class SendSMS extends AppCompatActivity {
         String sPhone = etPhone.getText().toString().trim();
         String sMessage = etMessage.getText().toString().trim();
         //check condition
-
         if(!sPhone.equals("") && !sMessage.equals("")) {
             //when both edit text value not equal to blank
             SmsManager smsManager = SmsManager.getDefault();
@@ -60,8 +56,6 @@ public class SendSMS extends AppCompatActivity {
             //Display toast
             Toast.makeText(getApplicationContext()
                     , "SMS sent Successfully", Toast.LENGTH_LONG).show();
-
-
         }
         if(sPhone.length()<10) {
             etPhone.setError("Enter Valid Phone Number");
@@ -73,7 +67,6 @@ public class SendSMS extends AppCompatActivity {
             //Display toast
             Toast.makeText(getApplicationContext()
                     , "Enter Value First", Toast.LENGTH_LONG).show();
-
         }
 
     }
