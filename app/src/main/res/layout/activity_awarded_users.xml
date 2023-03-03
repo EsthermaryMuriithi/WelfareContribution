@@ -9,7 +9,7 @@
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Awarded Users"
+        android:text="Awarded Members"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"

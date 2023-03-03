@@ -8,11 +8,13 @@ import java.util.Map;
 public class User {
     String id, name, phoneNumber, email, type;
     boolean awarded;
-
     public  User(){
         awarded = false;
     }
 
+    public static boolean isAdmin = false;
+
+    // getters and setters
     public String getId(){ return id;}
     public String getName() {
         return name;
@@ -36,12 +38,16 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    // user data as key-value pair(HashMap)
     @Exclude
     public Map<String, Object> toMap(){
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("awarded", this.awarded);
-        result.put("id", this.id);
-        result.put("phoneNumber", this.phoneNumber);
-        return  result;
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("id", id);
+        userData.put("name", name);
+        userData.put("phoneNumber", phoneNumber);
+        userData.put("email", email);
+        userData.put("awarded", awarded);
+        userData.put("type","user");
+        return  userData;
     }
 }

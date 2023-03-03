@@ -50,26 +50,24 @@ public class UserLogin extends AppCompatActivity {
                 }
                 if (TextUtils.isEmpty(password)) {
                     loginPassword.setError("Password is required");
-
                 } else {
                     loader.setMessage("Log in in Progress");
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(UserLogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                // move to view members
-                                 Intent intent = new Intent(UserLogin.this, UserDashboard.class);
-                                  startActivity(intent);
-                                 finish();
-                            } else {
-                                Toast.makeText(UserLogin.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                            loader.dismiss();
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                        // login unsuccessful
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(UserLogin.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            return;
                         }
+                        // login successful
+                        Toast.makeText(UserLogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        // move to view members
+                        Intent intent = new Intent(UserLogin.this, WaitingUsers.class);
+                        startActivity(intent);
+                        finish();
+                        loader.dismiss();
                     });
 
                 }
