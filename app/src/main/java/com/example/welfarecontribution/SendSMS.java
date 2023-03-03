@@ -5,7 +5,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -21,9 +20,9 @@ public class SendSMS extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_sms);
 
-        etPhone = findViewById(R.id.et_phone);
-        etMessage = findViewById(R.id.et_message);
-        btSend = findViewById(R.id.bt_send);
+        etPhone = findViewById(R.id.edtPhone);
+        etMessage = findViewById(R.id.edMessage);
+        btSend = findViewById(R.id.btnSend);
 
         btSend.setOnClickListener(v -> {
             // Request send sms permissions from user

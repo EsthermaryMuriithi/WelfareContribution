@@ -1,5 +1,7 @@
 package com.example.welfarecontribution
 
+import static java.security.AccessController.getContext;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -8,19 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class WaitingListFragment extends Fragment {
+public class WaitingListFragment extends AppCompatActivity {
     RecyclerView recyclerView;
     MyAdapter myAdapter;
     ArrayList<User> users;
@@ -49,7 +49,7 @@ public class WaitingListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         // inflate layout for this fragment
-        return  inflater.inflate(R.layout.fragment_waiting_list, container, false);
+        return  inflater.inflate(R.layout.activity_waiting_users, container, false);
     }
 
     @Override
