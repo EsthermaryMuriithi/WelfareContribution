@@ -45,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="Admin"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     android:textAlignment="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -71,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:text="User"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     android:textAlignment="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

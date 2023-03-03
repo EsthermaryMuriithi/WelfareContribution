@@ -30,18 +30,19 @@ public class AdminLogin extends AppCompatActivity {
             final String email = loginEmail.getText().toString().trim();
             final String password = loginPassword.getText().toString().trim();
 
-            if (TextUtils.isEmpty(email)) {
+            if (email.isEmpty()) {
                 loginEmail.setError("Email is required");
             }
-            if (TextUtils.isEmpty(password)) {
+            if (password.isEmpty()) {
                 loginPassword.setError("Password is required");
             }else {
                 loader.setMessage("Log in in Progress");
                 loader.setCanceledOnTouchOutside(false);
                 loader.show();
                 if(loginEmail.getText().toString().equals("admin@gmail.com") && loginPassword.getText().toString().equals("admin")){
+                    User.isAdmin = true; // set current user as admin
                     Toast.makeText(AdminLogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AdminLogin.this,AdminDashboard.class);
+                    Intent intent = new Intent(AdminLogin.this,WaitingUsers.class);
                     startActivity(intent);
 
                 }else{

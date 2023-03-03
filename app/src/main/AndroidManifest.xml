@@ -11,18 +11,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WelfareContribution"
         tools:targetApi="31">
-        <activity android:name="D"
-            android:exported="false"
-            />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".AdminLogin"
+            android:exported="false" />
+        <activity
+            android:name=".AwardedUsers"
+            android:exported="false" />
+        <activity
+            android:name=".Dashboard"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SendSMS"
+            android:exported="false"/>
+        <activity android:name=".UserLogin"
+            android:exported="false"/>
+        <activity android:name=".UserReg"
+            android:exported="false"/>
+        <activity android:name=".WaitingUsers"
+            android:exported="false"/>
     </application>
 
 </manifest>
