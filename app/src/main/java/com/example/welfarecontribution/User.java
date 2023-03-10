@@ -37,7 +37,7 @@ public class User {
     }
 
     // user data as key-value pair(HashMap)
-    @Exclude
+   // @Exclude
     public Map<String, Object> toMap(){
         Map<String, Object> userData = new HashMap<>();
         userData.put("id", id);

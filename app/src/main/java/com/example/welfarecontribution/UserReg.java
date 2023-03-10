@@ -38,11 +38,11 @@ public class UserReg extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reg);
-        registerFullName=findViewById(R.id.registerFullName);
-        registerPhoneNumber=findViewById(R.id.registerPhoneNumber)
-        registerEmail=findViewById(R.id.registerEmail);
+        //registerFullName=findViewById(R.id.registerFullName);
+        //registerPhoneNumber=findViewById(R.id.registerPhoneNumber);
+        //registerEmail=findViewById(R.id.registerEmail);
+        //registerPassword=findViewById(R.id.registerPassword);
 
-        registerPassword=findViewById(R.id.registerPassword);
         userRegisterButton=findViewById(R.id.userRegisterButton);
         loader=new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
@@ -103,7 +103,7 @@ public class UserReg extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             Toast.makeText(UserReg.this,"Data Set Successfully",Toast.LENGTH_SHORT).show();
 
-                                            Intent intent=new Intent(UserReg.this,AdminDashboard.class);
+                                            Intent intent=new Intent(UserReg.this,Dashboard.class);
                                             startActivity(intent);
                                             finish();
                                             loader.dismiss();
