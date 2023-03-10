@@ -4,9 +4,11 @@ import static java.security.AccessController.getContext;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,12 +39,14 @@ public class WaitingUsers extends AppCompatActivity {
     Animation spinAnimation;
     ProgressDialog loader;
     AlertDialog.Builder builder;
-
+    Button btnAwardedUsers;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_users);
+        btnAwardedUsers = findViewById(R.id.btnAwardedUsers);
+
         // show progress dialog
         loader = new ProgressDialog(this);
         builder = new AlertDialog.Builder(WaitingUsers.this);
@@ -58,8 +62,8 @@ public class WaitingUsers extends AppCompatActivity {
         usersAdapter = new UsersAdapter(this, users);
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
-        usersRef = database.getReference("users");
-        awardedUsersRef = database.getReference("users/awarded");
+        usersRef = database.getReference("Users");
+        awardedUsersRef = database.getReference("AwardedUsers");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -134,6 +138,12 @@ public class WaitingUsers extends AppCompatActivity {
              * in the onAnimationEnd() method
              */
         });
+
+        // move to awarded members
+        btnAwardedUsers.setOnClickListener(view -> {
+            Intent intent = new Intent(WaitingUsers.this, AwardedUsers.class);
+            startActivity(intent);
+        });
     }
 
     public User getRandomUser() {
@@ -166,7 +176,7 @@ public class WaitingUsers extends AppCompatActivity {
         user.setAwarded(true);
         usersRef.child(user.getId()).setValue(user);
 
-        // add the selected user to awarded list database (in the /users/awarded ref)
+        // add the selected user to awarded list database (in the /awardedUsers ref)
         awardedUsersRef.child(user.getId()).setValue(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

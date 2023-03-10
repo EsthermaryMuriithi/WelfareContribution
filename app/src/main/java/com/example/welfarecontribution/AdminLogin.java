@@ -42,9 +42,8 @@ public class AdminLogin extends AppCompatActivity {
                 if(loginEmail.getText().toString().equals("admin@gmail.com") && loginPassword.getText().toString().equals("admin")){
                     User.isAdmin = true; // set current user as admin
                     Toast.makeText(AdminLogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AdminLogin.this,WaitingUsers.class);
+                    Intent intent = new Intent(AdminLogin.this,AdminDashboard.class);
                     startActivity(intent);
-
                 }else{
                     Toast.makeText(AdminLogin.this, "Login Not Successful", Toast.LENGTH_SHORT).show();
                 }

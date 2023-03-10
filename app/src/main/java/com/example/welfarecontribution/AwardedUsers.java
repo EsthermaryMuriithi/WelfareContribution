@@ -38,8 +38,8 @@ public class AwardedUsers extends AppCompatActivity {
         loader = new ProgressDialog(this);
         database = FirebaseDatabase.getInstance();
         btnRestartCycle = findViewById(R.id.btnRestartCycle);
-        awardedUsersRef = database.getReference("users/awarded");
-        usersRef = database.getReference("users");
+        awardedUsersRef = database.getReference("AwardedUsers");
+        usersRef = database.getReference("Users");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         users = new ArrayList<>();
@@ -91,12 +91,14 @@ public class AwardedUsers extends AppCompatActivity {
                             // delete the user too in awarded list
                             awardedUsersRef.child(user.getId()).removeValue();
                         }
-
                     }
+
+                    Toast.makeText(AwardedUsers.this, "Cycle restarted successfully", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(AwardedUsers.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }));
         });

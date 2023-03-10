@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,103 +26,93 @@ import java.util.HashMap;
 
 public class UserReg extends AppCompatActivity {
 
-    private TextInputEditText registerFullName;
-    private TextInputEditText registerPhoneNumber;
-    private TextInputEditText registerEmail;
-    private TextInputEditText registerUserID;
-    private TextInputEditText registerPassword;
+    private EditText registerFullName, registerPhoneNumber, registerEmail, registerUserID, registerPassword;
     private Button userRegisterButton;
     private ProgressDialog loader;
     private FirebaseAuth mAuth;
     private DatabaseReference userDatabaseRef;
+    TextView tvLogin;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reg);
-        //registerFullName=findViewById(R.id.registerFullName);
-        //registerPhoneNumber=findViewById(R.id.registerPhoneNumber);
-        //registerEmail=findViewById(R.id.registerEmail);
-        //registerPassword=findViewById(R.id.registerPassword);
+        registerFullName = findViewById(R.id.registerFullName);
+        registerPhoneNumber = findViewById(R.id.registerPhoneNumber);
+        registerEmail = findViewById(R.id.registerEmail);
+        registerPassword = findViewById(R.id.registerPassword);
+        tvLogin = findViewById(R.id.tvLogin);
 
-        userRegisterButton=findViewById(R.id.userRegisterButton);
-        loader=new ProgressDialog(this);
+        userRegisterButton = findViewById(R.id.userRegisterButton);
+        loader = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
-        userRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String email = registerEmail.getText().toString().trim();
-                final String password = registerPassword.getText().toString().trim();
-                final String userId = registerUserID.getText().toString().trim();
-                final String fullName = registerFullName.getText().toString().trim();
-                final String phoneNumber = registerPhoneNumber.getText().toString().trim();
+        userRegisterButton.setOnClickListener(view -> {
+            final String email = registerEmail.getText().toString().trim();
+            final String password = registerPassword.getText().toString().trim();
+            final String fullName = registerFullName.getText().toString().trim();
+            final String phoneNumber = registerPhoneNumber.getText().toString().trim();
 
 
-                if (TextUtils.isEmpty(email)) {
-                    registerEmail.setError("Email is Required!");
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    registerPassword.setError("Password is Required!");
-                    return;
-                }
-                    if (TextUtils.isEmpty(userId)) {
-                        registerUserID.setError("UserID Required!");
-                        return;
-                }
-                if (TextUtils.isEmpty(fullName)) {
-                    registerFullName.setError("FullName is Required!");
-                    return;
-                }
-                if (TextUtils.isEmpty(phoneNumber)) {
-                    registerPhoneNumber.setError("PhoneNumber is Required!");
-                    return;
-                } else {
-                    loader.setMessage("Registering you....");
-                    loader.setCanceledOnTouchOutside(false);
-                    loader.show();
-
-                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            if (!task.isSuccessful()){
-                                String error=task.getException().toString();
-                                Toast.makeText(UserReg.this,"Error"+error,Toast.LENGTH_LONG).show();
-                            }
-                            else {
-                                String currentUserId=mAuth.getCurrentUser().getUid();
-                                userDatabaseRef= FirebaseDatabase.getInstance().getReference().child("user").child(currentUserId);
-                                HashMap userInfo=new HashMap();
-                                userInfo.put("id",currentUserId);
-                                userInfo.put("name",fullName);
-                                userInfo.put("email",email);
-                                userInfo.put("phoneNumber",phoneNumber);
-                                userInfo.put("type","user");
-                                userDatabaseRef.updateChildren(userInfo).addOnCompleteListener(new OnCompleteListener() {
-                                    @Override
-                                    public void onComplete(@NonNull Task task) {
-                                        if (task.isSuccessful()){
-                                            Toast.makeText(UserReg.this,"Data Set Successfully",Toast.LENGTH_SHORT).show();
-
-                                            Intent intent=new Intent(UserReg.this,Dashboard.class);
-                                            startActivity(intent);
-                                            finish();
-                                            loader.dismiss();
-
-                                        }else{
-                                            Toast.makeText(UserReg.this,task.getException().toString(),Toast.LENGTH_SHORT).show();
-                                            finish();
-                                            loader.dismiss();
-                                        }
-                                    }
-                                });
-
-                            }
-                        }
-                    });
-                }
+            if (TextUtils.isEmpty(email)) {
+                registerEmail.setError("Email is Required!");
+                return;
             }
+            if (TextUtils.isEmpty(password)) {
+                registerPassword.setError("Password is Required!");
+                return;
+            }
+            if (TextUtils.isEmpty(fullName)) {
+                registerFullName.setError("FullName is Required!");
+                return;
+            }
+            if (TextUtils.isEmpty(phoneNumber)) {
+                registerPhoneNumber.setError("PhoneNumber is Required!");
+                return;
+            }
+            loader.setMessage("Registering User ...");
+            loader.setCanceledOnTouchOutside(false);
+            loader.show();
+
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+
+                if (!task.isSuccessful()) {
+                    String error = task.getException().getMessage();
+                    Toast.makeText(UserReg.this, "Error" + error, Toast.LENGTH_LONG).show();
+                    loader.dismiss();
+                    return;
+                }
+
+                String currentUserId = mAuth.getCurrentUser().getUid();
+                userDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+                HashMap userInfo = new HashMap();
+                userInfo.put("id", currentUserId);
+                userInfo.put("name", fullName);
+                userInfo.put("email", email);
+                userInfo.put("phoneNumber", phoneNumber);
+                userInfo.put("type", "user");
+
+                userDatabaseRef.updateChildren(userInfo).addOnCompleteListener(task1 -> {
+                    if (!task1.isSuccessful()) {
+                        Toast.makeText(UserReg.this, task1.getException().toString(), Toast.LENGTH_SHORT).show();
+                        loader.dismiss();
+                        return;
+                    }
+
+                    Toast.makeText(UserReg.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                    loader.dismiss();
+
+                    Intent intent = new Intent(UserReg.this, WaitingUsers.class);
+                    startActivity(intent);
+                });
+            });
         });
+
+        // Login in case a user already has an account
+        tvLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(UserReg.this, UserLogin.class);
+            startActivity(intent);
+        });
+
     }
 }

@@ -20,13 +20,11 @@ public class Dashboard extends AppCompatActivity {
         admin.setOnClickListener(View->{
             Intent intent = new Intent(Dashboard.this, AdminLogin.class);
             startActivity(intent);
-            finish();
         });
 
         user.setOnClickListener(View->{
             Intent intent = new Intent(Dashboard.this, UserLogin.class);
             startActivity(intent);
-            finish();
         });
     }
 }
