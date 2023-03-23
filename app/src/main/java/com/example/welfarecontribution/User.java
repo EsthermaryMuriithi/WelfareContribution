@@ -10,7 +10,7 @@ public class User {
         awarded = false;
     }
 
-    public static boolean isAdmin = false;
+    public static boolean isAdmin = false; // use this one to check if a user is admin or not.
 
     // getters and setters
     public String getId(){ return id;}

@@ -127,6 +127,12 @@ public class WaitingUsers extends AppCompatActivity {
 
         // randomly select a user
         spinImage.setOnClickListener(v -> {
+            // disable spining if user is not an admin
+            if (!User.isAdmin){
+                Toast.makeText(this, "Only Admin can spin!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (users.size() == 0) {
                 Toast.makeText(WaitingUsers.this, "All members have been awarded.", Toast.LENGTH_SHORT).show();
                 return;

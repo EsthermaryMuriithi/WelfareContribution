@@ -77,31 +77,45 @@ public class AwardedUsers extends AppCompatActivity {
 
         // restart cycle
         btnRestartCycle.setOnClickListener(view -> {
-            awardedUsersRef.removeValue().addOnCompleteListener(task -> usersRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot ds: dataSnapshot.getChildren()){
-                        User user = ds.getValue(User.class);
-                        /**
-                         * Set member as not awarded and remove them too from the awarded members list
-                         */
-                        if(user.isAwarded()){
-                            user.setAwarded(false);
-                            usersRef.child(user.getId()).updateChildren(user.toMap());
-                            // delete the user too in awarded list
-                            awardedUsersRef.child(user.getId()).removeValue();
-                        }
-                    }
+            // disable restarting cycle if a user is not admin
+            if (!User.isAdmin){
+                Toast.makeText(this, "Only admins can restart award cycles.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                    Toast.makeText(AwardedUsers.this, "Cycle restarted successfully", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(AwardedUsers.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }));
+            awardedUsersRef.removeValue().addOnCompleteListener(task -> usersRef.addListenerForSingleValueEvent(awardedUsersListener));
         });
 
     }
+
+
+    /**
+     * Awarded users event listener
+     */
+    ValueEventListener awardedUsersListener =  new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for (DataSnapshot ds: dataSnapshot.getChildren()){
+                User user = ds.getValue(User.class);
+                /**
+                 * Set member as not awarded and remove them too from the awarded members list
+                 */
+                if(user.isAwarded()){
+                    user.setAwarded(false);
+                    usersRef.child(user.getId()).updateChildren(user.toMap());
+                    // delete the user too in awarded list
+                    awardedUsersRef.child(user.getId()).removeValue();
+                }
+            }
+
+            Toast.makeText(AwardedUsers.this, "Cycle restarted successfully", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Toast.makeText(AwardedUsers.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
 }

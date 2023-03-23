@@ -62,6 +62,7 @@ public class UserLogin extends AppCompatActivity {
                         return;
                     }
                     // login successful
+                    User.isAdmin = false; // set user as normal user
                     Toast.makeText(UserLogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     // move to view members
                     Intent intent = new Intent(UserLogin.this, WaitingUsers.class);
