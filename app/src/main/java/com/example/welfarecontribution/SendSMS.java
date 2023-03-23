@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class SendSMS extends AppCompatActivity {
     EditText etPhone,etMessage;
     Button btSend;
+    private static final int REQUEST_SEND_SMS = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class SendSMS extends AppCompatActivity {
                 //request permission
                 ActivityCompat.requestPermissions(SendSMS.this
                         ,new String[]{Manifest.permission.SEND_SMS}
-                        ,100);
+                        ,REQUEST_SEND_SMS);
             }
 
         });
@@ -46,6 +47,17 @@ public class SendSMS extends AppCompatActivity {
         //Get Values from edit Text
         String sPhone = etPhone.getText().toString().trim();
         String sMessage = etMessage.getText().toString().trim();
+        if(sPhone.length()<10 || sPhone.length()>10) {
+            etPhone.setError("Enter Valid Phone Number");
+            etPhone.requestFocus();
+            return;
+        }
+        if (sMessage.equals("")){
+            etMessage.setError("Please enter message");
+            etMessage.requestFocus();
+            return;
+        }
+
         //check condition
         if(!sPhone.equals("") && !sMessage.equals("")) {
             //when both edit text value not equal to blank
@@ -55,26 +67,15 @@ public class SendSMS extends AppCompatActivity {
             //Display toast
             Toast.makeText(getApplicationContext()
                     , "SMS sent Successfully", Toast.LENGTH_LONG).show();
+            clearInputs();
         }
-        if(sPhone.length()<10) {
-            etPhone.setError("Enter Valid Phone Number");
-            etPhone.requestFocus();
-            return;
-        }
-        else {
-            //when edit text is blank
-            //Display toast
-            Toast.makeText(getApplicationContext()
-                    , "Enter Value First", Toast.LENGTH_LONG).show();
-        }
-
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 //check condition
-        if(requestCode == 100 &&  grantResults.length > 0 && grantResults[0]
+        if(requestCode == REQUEST_SEND_SMS &&  grantResults.length > 0 && grantResults[0]
                 == PackageManager.PERMISSION_GRANTED){
             //when Permission is granted
             //call method
@@ -87,4 +88,13 @@ public class SendSMS extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Clear what the user had entered in the messages
+     */
+    private void clearInputs(){
+        etPhone.setText("");
+        etMessage.setText("");
+    }
+
 }
